@@ -1,10 +1,1 @@
-</div>
 
-    <!-- QR Code 放這裡 -->
-    <div class="qr-section">
-        <h2>📱 掃描 QR Code</h2>
-        <p>使用手機掃描 QR Code，快速瀏覽學習歷程檔案</p>
-        <img src="static/images/qr_code.jpg" alt="學習歷程 QR Code">
-    </div>
-
-</div>
