@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學習歷程檔案</title>
 
+    <style>
+        body {
+            margin: 0;
+            font-family: "Noto Sans TC", sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #ffffff);
+        }
+
+        header {
+            background-color: #1565c0;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #1565c0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .card p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>文化資管系 黃科富</h1>
+    <p>高中生學習歷程檔案｜讀書計畫與成長紀錄</p>
+</header>
+
+<div class="container">
+    <div class="card-grid">
+
+        <div class="card">
+            <a href="/competition">🏆 競賽經驗</a>
+            <p>參與校內外競賽，培養問題解決與實作能力。</p>
+        </div>
+
+        <div class="card">
+            <a href="/activities">🌟 課外活動</a>
+            <p>拓展視野，累積多元學習與團隊合作經驗。</p>
+        </div>
+
+        <div class="card">
+            <a href="/leadership">👑 幹部經驗</a>
+            <p>擔任班級與校內幹部，培養領導與溝通能力。</p>
+        </div>
+
+        <div class="card">
+            <a href="/club">🎵 社團經驗</a>
+            <p>透過社團活動探索興趣與培養責任感。</p>
+        </div>
+
+        <div class="card">
+            <a href="/ask">📚 多元選修課程_字典</a>
+            <p>選修跨領域課程，強化專業與探索未來方向。</p>
+        </div>
+
+        <div class="card">
+            <a href="/stock">📚 多元選修課程_查詢股價</a>
+            <p>輸入股票代號（例如 2330），查詢該股票的相關資訊如前一天的收盤價</p>
+        </div>
+
+        <div class="card">
+            <a href="/ai">🤖 AI應用</a>
+            <p>結合人工智慧工具，提升學習效率與創作能力。</p>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    © 2026 黃科富 學習歷程檔案
+</footer>
+
+</body>
+</html>
