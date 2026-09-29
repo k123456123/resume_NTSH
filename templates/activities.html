@@ -3,45 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask a Question</title>
+
+    <title>課外活動｜我的高中生活</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            margin: 0;
+            font-family: "Noto Sans TC", Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #fce4ec);
             color: #333;
         }
+
         header {
-            background-color: #4CAF50;
+            background: linear-gradient(135deg, #1976d2, #42a5f5);
             color: white;
-            padding: 10px;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 42px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        nav {
+            background-color: white;
+            text-align: center;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #1976d2;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #e91e63;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-        section {
-            margin: 20px;
+
+        .intro h2 {
+            color: #1976d2;
+            margin-top: 0;
         }
-        .form-box {
+
+        .activities {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
             background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+        }
+
+        .card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 22px;
+        }
+
+        .card h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+
+        .card p {
+            line-height: 1.8;
+        }
+
+        footer {
+            margin-top: 50px;
+            background-color: #1976d2;
+            color: white;
+            text-align: center;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 800px) {
+            .activities {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+            header h1 {
+                font-size: 32px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 8px;
+            }
+
+            .activities {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
+
     <header>
-        <h1>課外活動</h1>
+        <h1>我的課外活動</h1>
+        <p>探索興趣、累積經驗，留下屬於我的高中回憶</p>
     </header>
-    <section>
-        <div class="form-box">
-            <form action="/activities" method="post">
-                <label for="question">你的問題:</label><br>
-                <input type="text" id="question" name="question" value="{{ question }}"><br><br>
-                <label for="answer">答案:</label><br>
-                <input type="text" id="answer" name="answer" readonly value="{{ answer }}"><br><br>
-                <input type="submit" value="送出">
-                <input type="button" value="回首頁" onclick="window.location.href='/'">
-            </form>
-        </div>
-    </section>
+
+    <nav>
+        <a href="/">首頁</a>
+        <a href="/activities">課外活動</a>
+        <a href="/skills">專長技能</a>
+        <a href="/contact">聯絡我</a>
+    </nav>
+
+    <main class="container">
+
+        <section class="intro">
+            <h2>豐富的高中生活</h2>
+            <p>
+                除了課堂上的學習之外，我也積極參與各種課外活動。
+                透過參加社團、運動以及團體活動，我學習到如何與他人合作，
+                也培養了責任感、溝通能力與解決問題的能力。
+            </p>
+        </section>
+
+        <section class="activities">
+
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80"
+                     alt="籃球運動">
+                <div class="card-content">
+                    <h3>🏀 籃球活動</h3>
+                    <p>
+                        我平常喜歡打籃球，曾經和同學一起參加校內籃球活動。
+                        籃球讓我學會團隊合作，也讓我在課業之餘保持運動習慣。
+                    </p>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80"
+                     alt="音樂活動">
+                <div class="card-content">
+                    <h3>🎵 音樂興趣</h3>
+                    <p>
+                        音樂是我生活中重要的休閒活動。平常會聽不同類型的音樂，
+                        也會利用空閒時間接觸樂器，培養自己的興趣。
+                    </p>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80"
+                     alt="電腦程式設計">
+                <div class="card-content">
+                    <h3>💻 程式設計</h3>
+                    <p>
+                        我對資訊科技與網頁設計很有興趣。
+                        透過製作 HTML、CSS 網頁，我學習如何把自己的想法轉換成實際作品。
+                    </p>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=800&q=80"
+                     alt="志工服務">
+                <div class="card-content">
+                    <h3>🤝 志工服務</h3>
+                    <p>
+                        參與志工活動讓我有機會幫助其他人。
+                        在與不同的人互動過程中，我也學習到耐心、責任與溝通的重要性。
+                    </p>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80"
+                     alt="團隊活動">
+                <div class="card-content">
+                    <h3>🏆 團隊活動</h3>
+                    <p>
+                        在學校的團體活動中，我經常與同學分工合作。
+                        我認為每個人的想法都很重要，互相溝通才能完成共同的目標。
+                    </p>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80"
+                     alt="攝影與生活紀錄">
+                <div class="card-content">
+                    <h3>📷 攝影與生活</h3>
+                    <p>
+                        我喜歡用照片記錄生活中的美好時刻。
+                        攝影讓我開始觀察生活中的細節，也留下許多珍貴的高中回憶。
+                    </p>
+                </div>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 我的高中自我介紹網站</p>
+    </footer>
+
 </body>
 </html>
