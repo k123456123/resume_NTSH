@@ -128,3 +128,20 @@ def ask2():
         question="",
         answer=""
     )
+def ask():
+    if request.method == 'POST':
+        question = request.form.get('question', '').strip()
+
+        answer = question
+
+        return render_template(
+            'ask.html',
+            question=question,
+            answer=answer
+        )
+
+    return render_template(
+        'ask.html',
+        question="",
+        answer=""
+    )
