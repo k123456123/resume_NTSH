@@ -4,7 +4,7 @@ import requests
 
 app = Flask(__name__)
 
-# 建立中韓翻譯題庫（保留原本功能）
+# 建立中韓翻譯題庫
 zh_ko_dict = {
     "你好": "안녕하세요",
     "안녕하세요": "你好",
@@ -19,7 +19,7 @@ zh_ko_dict = {
     "愛": "사랑"
 }
 
-# 建立中日翻譯題庫（新增功能）
+# 建立中日翻譯題庫
 zh_jp_dict = {
     "你好": "こんにちは",
     "こんにちは": "你好",
@@ -53,8 +53,7 @@ def competition():
     return render_template('competition.html')
 
 
-
-   # 中韓、中日翻譯共用路由
+# 中韓、中日翻譯共用路由
 @app.route('/ask', methods=['GET', 'POST'])
 def ask():
 
@@ -70,12 +69,15 @@ def ask():
         if language == 'ko':
             dictionary = zh_ko_dict
             language_name = "韓文"
-            template_name = "ask.html"
 
         elif language == 'jp':
             dictionary = zh_jp_dict
             language_name = "日文"
-            template_name = "ask.html"
+
+        else:
+            language = 'ko'
+            dictionary = zh_ko_dict
+            language_name = "韓文"
 
         # 查詢答案
         answer = dictionary.get(
@@ -85,23 +87,22 @@ def ask():
 
         # 回傳答案
         return render_template(
-            template_name,
+            'ask.html',
             question=question,
             answer=answer,
             language=language
         )
 
-      # GET 時給空白欄位
+    # GET 時給空白欄位
     return render_template(
         'ask.html',
         question="",
         answer="",
         language="ko"
     )
-    return render_template('ask.html', question="", answer="")
 
 
-# 課外活動（保留原本功能）
+# 課外活動
 @app.route('/activities', methods=['GET', 'POST'])
 def activities():
     if request.method == 'POST':
@@ -118,7 +119,7 @@ def activities():
     return render_template('activities.html', question="", answer="")
 
 
-# 股票查詢（修正原本程式錯誤）
+# 股票查詢
 @app.route('/stock', methods=['GET', 'POST'])
 def stock():
     if request.method == 'POST':
@@ -180,30 +181,6 @@ def ai():
 @app.route('/pokemon')
 def pokemon():
     return render_template('pokemon.html')
-
-
-# 中日文字典（新增功能）
-@app.route('/ask', methods=['GET', 'POST'])
-def ask2():
-    if request.method == 'POST':
-        question = request.form.get('question', '').strip()
-
-        answer = dictionary.get(
-            question,
-            "查無此單字，請重新輸入！"
-        )
-
-        return render_template(
-            'ask.html',
-            question=question,
-            answer=answer
-        )
-
-    return render_template(
-        'ask.html',
-        question="",
-        answer=""
-    )
 
 
 # 啟動 Flask
