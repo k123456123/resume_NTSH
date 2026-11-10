@@ -91,13 +91,13 @@ def ask():
             language=language
         )
 
-    # GET 時給空白欄位
+      # GET 時給空白欄位
     return render_template(
         'ask.html',
         question="",
         answer="",
-        lang...
-
+        language="ko"
+    )
     return render_template('ask.html', question="", answer="")
 
 
