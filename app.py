@@ -1,11 +1,13 @@
+
 from flask import Flask, request, render_template
+import requests
 
 app = Flask(__name__)
 
-# 建立題庫
+# 建立中韓翻譯題庫（保留原本功能）
 zh_ko_dict = {
     "你好": "안녕하세요",
-    "안녕하세요" : "你好",
+    "안녕하세요": "你好",
     "謝謝": "감사합니다",
     "對不起": "죄송합니다",
     "早安": "좋은 아침",
@@ -16,86 +18,114 @@ zh_ko_dict = {
     "家人": "가족",
     "愛": "사랑"
 }
+
+# 建立中日翻譯題庫（新增功能）
 dictionary = {
     "你好": "こんにちは",
     "こんにちは": "你好",
     "謝謝": "ありがとう",
+    "ありがとう": "謝謝",
     "對不起": "ごめんなさい",
+    "ごめんなさい": "對不起",
     "早安": "おはようございます",
+    "おはようございます": "早安",
     "晚安": "おやすみなさい",
+    "おやすみなさい": "晚安",
     "老師": "先生",
+    "先生": "老師",
     "學生": "学生",
+    "学生": "學生",
     "朋友": "友達",
+    "友達": "朋友",
     "家人": "家族",
+    "家族": "家人",
     "愛": "愛"
 }
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 @app.route('/competition')
 def competition():
     return render_template('competition.html')
 
-# 使用 dict 作為中韓翻譯的題庫
+
+# 中韓文字典（原本功能）
 @app.route('/ask', methods=['GET', 'POST'])
 def ask():
     if request.method == 'POST':
-        # 2. 讀取學生的問題###^#@#Q%#@
         question1 = request.form.get('question', '').strip()
-        # 3. 查詢題庫的對應答案
-        # answer1 = zh_ko_dict.get(question, "抱歉，我目前沒有這個詞的韓文對應。")
 
-        answer1 = zh_ko_dict[question1]
-        # 4. 回傳答案給學生
-        return render_template('ask.html', question=question1, answer=answer1)
-    # GET 時給空白欄位
+        answer1 = zh_ko_dict.get(
+            question1,
+            "抱歉，我目前沒有這個詞的韓文對應。"
+        )
+
+        return render_template(
+            'ask.html',
+            question=question1,
+            answer=answer1
+        )
+
     return render_template('ask.html', question="", answer="")
 
 
-
-#改成互動 3/17
+# 課外活動（保留原本功能）
 @app.route('/activities', methods=['GET', 'POST'])
 def activities():
     if request.method == 'POST':
-        # 2. 讀取學生的問題
         question = request.form.get('question', '').strip()
-        # 3. 查詢題庫的對應答案
+
         answer1 = "抱歉，我目前沒有這個詞的韓文對應。"
-        # 4. 回傳答案給學生
-        return render_template('activities.html', question=question, answer=answer1)
-    # GET 時給空白欄位
+
+        return render_template(
+            'activities.html',
+            question=question,
+            answer=answer1
+        )
+
     return render_template('activities.html', question="", answer="")
 
-#改成互動 4/14
+
+# 股票查詢（修正原本程式錯誤）
 @app.route('/stock', methods=['GET', 'POST'])
 def stock():
     if request.method == 'POST':
-        # 2. 讀取股票號碼
         question = request.form.get('question', '').strip()
-        # 3. 查詢股票號碼的對應股價
 
-        answer = data["data"][-1][6]
-   
-    
-    # API URL
-    url = f"https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&stockNo={stock_no}"
-    
-    # 發送請求
-    res = requests.get(url)
-    data = res.json()
-    
-    # 判斷是否成功
-    if data["stat"] == "OK":
-        answer = data["data"][0][6]
-        #print("收盤價：",data["data"][0][6])
-    else:
-        answer = "查無資料，請確認股票代號或日期"
+        if not question:
+            answer = "請輸入股票代號，例如 2330。"
+        else:
+            url = (
+                "https://www.twse.com.tw/exchangeReport/"
+                f"STOCK_DAY?response=json&stockNo={question}"
+            )
 
-        # 4. 回傳答案給使用者
-        return render_template('stock.html', question=question, answer=answer)
-    # GET 時給空白欄位
+            try:
+                res = requests.get(url, timeout=10)
+                res.raise_for_status()
+                data = res.json()
+
+                if data.get("stat") == "OK" and data.get("data"):
+                    answer = data["data"][-1][6]
+                    answer = f"最近交易日收盤價：{answer} 元"
+                else:
+                    answer = "查無資料，請確認股票代號或日期。"
+
+            except requests.RequestException:
+                answer = "目前無法連接股價查詢服務，請稍後再試。"
+            except (ValueError, KeyError, IndexError):
+                answer = "資料格式異常，請稍後再試。"
+
+        return render_template(
+            'stock.html',
+            question=question,
+            answer=answer
+        )
+
     return render_template('stock.html', question="", answer="")
 
 
@@ -103,31 +133,37 @@ def stock():
 def leadership():
     return render_template('leadership.html')
 
+
 @app.route('/club')
 def club():
     return render_template('club.html')
+
 
 @app.route('/electives')
 def electives():
     return render_template('electives.html')
 
+
 @app.route('/ai')
 def ai():
     return render_template('ai.html')
- 
-@app.route("/pokemon")
+
+
+@app.route('/pokemon')
 def pokemon():
-    return render_template("pokemon.html")
+    return render_template('pokemon.html')
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# 中日文字典（新增功能）
 @app.route('/ask2', methods=['GET', 'POST'])
 def ask2():
     if request.method == 'POST':
         question = request.form.get('question', '').strip()
 
-        answer = question
+        answer = dictionary.get(
+            question,
+            "查無此單字，請重新輸入！"
+        )
 
         return render_template(
             'ask2.html',
@@ -140,20 +176,8 @@ def ask2():
         question="",
         answer=""
     )
-def ask():
-    if request.method == 'POST':
-        question = request.form.get('question', '').strip()
 
-        answer = question
 
-        return render_template(
-            'ask.html',
-            question=question,
-            answer=answer
-        )
-
-    return render_template(
-        'ask.html',
-        question="",
-        answer=""
-    )
+# 啟動 Flask
+if __name__ == '__main__':
+    app.run(debug=True)
