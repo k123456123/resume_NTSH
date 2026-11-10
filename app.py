@@ -53,22 +53,50 @@ def competition():
     return render_template('competition.html')
 
 
-# 中韓文字典（原本功能）
+
+   # 中韓、中日翻譯共用路由
 @app.route('/ask', methods=['GET', 'POST'])
 def ask():
+
     if request.method == 'POST':
-        question1 = request.form.get('question', '').strip()
 
-        answer1 = zh_ko_dict.get(
-            question1,
-            "抱歉，我目前沒有這個詞的韓文對應。"
+        # 讀取學生輸入的問題
+        question = request.form.get('question', '').strip()
+
+        # 讀取選擇的語言
+        language = request.form.get('language', 'ko')
+
+        # 根據語言選擇題庫
+        if language == 'ko':
+            dictionary = zh_ko_dict
+            language_name = "韓文"
+            template_name = "ask.html"
+
+        elif language == 'jp':
+            dictionary = zh_jp_dict
+            language_name = "日文"
+            template_name = "ask.html"
+
+        # 查詢答案
+        answer = dictionary.get(
+            question,
+            f"抱歉，我目前沒有這個詞的{language_name}對應。"
         )
 
+        # 回傳答案
         return render_template(
-            'ask.html',
-            question=question1,
-            answer=answer1
+            template_name,
+            question=question,
+            answer=answer,
+            language=language
         )
+
+    # GET 時給空白欄位
+    return render_template(
+        'ask.html',
+        question="",
+        answer="",
+        lang...
 
     return render_template('ask.html', question="", answer="")
 
