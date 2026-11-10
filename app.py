@@ -110,3 +110,21 @@ def pokemon():
 
 if __name__ == '__main__':
     app.run(debug=True)
+@app.route('/ask2', methods=['GET', 'POST'])
+def ask2():
+    if request.method == 'POST':
+        question = request.form.get('question', '').strip()
+
+        answer = question
+
+        return render_template(
+            'ask2.html',
+            question=question,
+            answer=answer
+        )
+
+    return render_template(
+        'ask2.html',
+        question="",
+        answer=""
+    )
