@@ -183,7 +183,7 @@ def pokemon():
 
 
 # 中日文字典（新增功能）
-@app.route('/ask2', methods=['GET', 'POST'])
+@app.route('/ask', methods=['GET', 'POST'])
 def ask2():
     if request.method == 'POST':
         question = request.form.get('question', '').strip()
@@ -194,13 +194,13 @@ def ask2():
         )
 
         return render_template(
-            'ask2.html',
+            'ask.html',
             question=question,
             answer=answer
         )
 
     return render_template(
-        'ask2.html',
+        'ask.html',
         question="",
         answer=""
     )
